@@ -27,9 +27,11 @@ Once the credentials file is created simply run the send_to_kinsis file to enabl
 python send_to_kinesis.py
 ```
 
-There's also an experimental tweet_daemon.py script to run the producer as a daemon on EC2 (or another cloud compute resource).
+There's also an experimental tweet_daemon.py script to run the producer as a daemon on EC2 (or another cloud compute resource) which still requires the PID file/directory to be properly configured.
 
 When running the producer will create a log directory in the same folder containing all of the retreived tweet logs.
+
+You can use Kinesis to handle the tweets however you like, but the example using snowpipes below uses Firehose to dump files into an S3 bucket which will then be ingested directly into Snowflake as a varient data type using a Snowpipe for further processing.
 
 ## Snowpipe
 To setup a snowpipe for data ingestion into Snowflake see the [Snowpipe readme](SNOWPIPE_SETUP.MD).
