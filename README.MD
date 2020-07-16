@@ -12,7 +12,7 @@ twitter:
   app_name: 'tiwtter_amm_name'
   consumer_key: 'consumer_key'
   consumer_secret: 'consumer_secret'
-  access_token: 'access_token-nDFaOVeIn6hEtI6fLahRkO6bJQVy1eRPu1WnSIX'
+  access_token: 'access_token'
   access_secret: 'access_secret'
 aws:
   account_name: 'aws_account_name'
