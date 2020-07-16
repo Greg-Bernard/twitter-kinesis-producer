@@ -14,11 +14,12 @@ import datetime as dt
 import os
 import logging
 import yaml
+import argparse
 
 # Use custom logger settings
 from extras.logger import configure_logger
 
-from daemon import DaemonContext
+from daemon import DaemonContext, pidfile
 from send_to_kinesis import TweetsCollector
 
 logger = configure_logger(name='daemon')
@@ -43,11 +44,13 @@ os.environ['TWITTER_KEYWORDS'] = "coveo,Coveo"
 # testing ended -------------------------------------------------------------
 
 
-def run_daemon(logger):
+def run_daemon(pid_file, logger):
     """
     Function to run TweetsCollector as a Daemon process.
     """
-    context = DaemonContext()
+    context = DaemonContext(
+        pidfile=pidfile.TimeoutPIDLockFile(pid_file),
+    )
 
     with context:
         logger.info('Started at %s', dt.datetime.now())
@@ -65,4 +68,9 @@ def run_daemon(logger):
 
 
 if __name__ == '__main__':
-    run_daemon(logger=logger)
+    parser = argparse.ArgumentParser(description="Twitter Producer Daemon for Kinesis")
+    parser.add_argument('-p', '--pid-file', default='twitter_daemon.pid')
+
+    args = parser.parse_args()
+
+    run_daemon(pid_file=args.pid_file,logger=logger)

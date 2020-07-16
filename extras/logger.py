@@ -26,7 +26,8 @@ def configure_logger(
     filename = name + '.log'
     handler = RotatingFileHandler(
         folder_path / filename, 
-        mode='a', maxBytes=10 * 1000 * 1024,
+        mode='a', 
+        maxBytes=10 * 1000 * 1024,
         backupCount=10
     )
     formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(module)s - %(message)s')                            
