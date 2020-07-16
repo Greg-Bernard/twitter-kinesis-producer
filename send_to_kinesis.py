@@ -168,9 +168,11 @@ class SendTweetsToKinesis(StreamListener):
         return record
 
     def put_tweet_to_kinesis(self, stream_name, tweet, partition_key='created_at'):
-        res = self.kinesis.put_record(StreamName=stream_name,
-                                      Data=json.dumps(tweet),
-                                      PartitionKey=partition_key)
+        res = self.kinesis.put_record(
+            StreamName=stream_name,
+            Data=json.dumps(tweet),
+            PartitionKey=partition_key
+        )
 
         return res
 
