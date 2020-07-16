@@ -30,3 +30,6 @@ python send_to_kinesis.py
 There's also an experimental tweet_daemon.py script to run the producer as a daemon on EC2 (or another cloud compute resource).
 
 When running the producer will create a log directory in the same folder containing all of the retreived tweet logs.
+
+## Snowpipe
+To setup a snowpipe for data ingestion into Snowflake see the [Snowpipe readme](SNOWPIPE_SETUP.MD).

@@ -1,12 +1,15 @@
-## Create snowpipe in snowflake to auto-ingest new tweet data
+## Create Snowpipe to auto-ingest new tweet data
 
-### First create staging area 
+### Example workflow:
+
+#### First create staging area 
 ```sql
 CREATE OR REPLACE STAGE LANDING_ZONE.TWITTER.TWEETS_STAGE
 URL = S3://coveo-twitter-test/
 CREDENTIALS = (AWS_KEY_ID = 'KEY' AWS_SECRET_KEY = 'SECRET_KEY');
 ```
-### Then create table to add data to
+
+#### Then create table to add data to
 This table uses an incremental integer RECID column to record order tweets were added and to troubleshoot any duplicates or other issues that may arrise. It also includes a LOADED_AT_UTC column to show the load timestamp for the data to track and SLA issues.
 ```sql
 CREATE OR REPLACE TABLE LANDING_ZONE.TWITTER.TWEETS
@@ -16,6 +19,8 @@ CREATE OR REPLACE TABLE LANDING_ZONE.TWITTER.TWEETS
   , LOADED_AT_UTC TIMESTAMP_NTZ NOT NULL SYSDATE()
 );
 ```
+
+#### Create Snowpipe
 Finally create the snowpipe which will load the data into snowflake. Be sure to capture the AWS ARN to set up your S3 notifications settings properly.
 ```sql
 CREATE OR REPLACE PIPE LANDING_ZONE.TWITTER.TWEETS_PIPE AUTO_INGEST=TRUE AS
@@ -24,8 +29,11 @@ CREATE OR REPLACE PIPE LANDING_ZONE.TWITTER.TWEETS_PIPE AUTO_INGEST=TRUE AS
     FILE_FORMAT = (TYPE = 'JSON');
 ```
 
+#### Check everything's working
 If you need to see your created pipes or stages use:
 ```SQL
 SHOW PIPES;
 SHOW STAGES;
 ```
+
+#### An intro to [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe.html)
