@@ -142,7 +142,6 @@ class SendTweetsToKinesis(StreamListener):
             user_attrs = ['name', 'screen_name', 'location', 'url', 'description',
                           'followers_count', 'created_at', 'utc_offset', 'time_zone', 'lang']
             clean = {a: tweet_to_clean[a] for a in attrs}
-            # clean['created_at'] = parse(tweet_to_clean['created_at']).replace(tzinfo=None)
             created_at = dt.datetime.fromtimestamp(int(clean['timestamp_ms'])/1000)
             # setup UTC timezone, needed if the producer is not UTC time
             created_at = created_at.astimezone(pytz.utc)
