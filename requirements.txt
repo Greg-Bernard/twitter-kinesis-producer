@@ -25,7 +25,7 @@ pexpect==4.8.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.5
 ptyprocess==0.6.0
-Pygments==2.6.1
+Pygments==2.7.4
 pylint==2.5.3
 PySocks==1.7.1
 python-daemon==2.2.4
